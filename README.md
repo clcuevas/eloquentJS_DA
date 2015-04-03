@@ -1,0 +1,1 @@
+This is my repo containing my solutions for the exercises at the end of Chapter 5 in the Eloquent JavaScript book.
