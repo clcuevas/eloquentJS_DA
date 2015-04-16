@@ -13,28 +13,18 @@ function average(array) {
 // var getCentury = ancestry.map(function(person) {
 // 	return Math.ceil(person.died / 100);
 // });
-function groupBy(array, elementGroup) {
-  var groups = {};
-  array.forEach(function(person) {
-    var getCentury = elementGroup(person);
-    if(getCentury in groups) {
-      groups[century].push(person);
-    } else {
-      groups[century] = [person];
-    }
-  });
-  return groups;
-}
+var centuryObj = {};
 
-var getCentury = groupBy(ancestry, function(person) {
-  return Math.ceil(person.died / 100);
+ancestry.forEach(function(person) {
+  var century = Math.ceil(person.died / 100);
+  if (!(century in centuryObj)) {
+    centuryObj[century] = [];
+  }
+  centuryObj[century].push(person.died - person.born);
+  console.log(centuryObj[century]);
 });
-console.log(getCentury);
 
-for (var century in byCentury) {
-  var ages = byCentury[century].map(function(person) {
-    return person.died - person.born;
-  });
-  console.log(century + ": " + average(ages));
+for(century in centuryObj) {
+  console.log(century + ": " + Math.round((average(centuryObj[century])) * 10) / 10);
 }
 
