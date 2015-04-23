@@ -10,17 +10,19 @@ function average(array) {
 
 // /*this shows what century a person belongs to
 // from the ancestry array list*/
-// var getCentury = ancestry.map(function(person) {
-// 	return Math.ceil(person.died / 100);
-// });
-function groupBy(array, elementGroup) {
+var centuryGroup = ancestry.map(function(person) {
+	return Math.ceil(person.died / 100);
+});
+
+function groupBy(array, centuryGroup) {
   var groups = {};
-  array.forEach(function(person) {
-    var getCentury = elementGroup(person);
-    if(getCentury in groups) {
-      groups[century].push(person);
+  array.forEach(function(element) {
+    var groupName = centuryGroup(element);
+    //if century is in groups object
+    if(groupName in groups) {
+      groups[groupName].push(element);
     } else {
-      groups[century] = [person];
+      groups[groupName] = [element];
     }
   });
   return groups;
@@ -29,10 +31,9 @@ function groupBy(array, elementGroup) {
 var getCentury = groupBy(ancestry, function(person) {
   return Math.ceil(person.died / 100);
 });
-console.log(getCentury);
 
-for (var century in byCentury) {
-  var ages = byCentury[century].map(function(person) {
+for (var century in getCentury) {
+  var ages = getCentury[century].map(function(person) {
     return person.died - person.born;
   });
   console.log(century + ": " + average(ages));
